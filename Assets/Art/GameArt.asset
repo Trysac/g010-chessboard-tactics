@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3e6f167c5d6ad4b8c595fdc8efff3d, type: 3}
+  m_Name: GameArt
+  m_EditorClassIdentifier: ChessboardTactics.Game::ChessboardTactics.Game.GameArt
+  LightTile: {fileID: 2100000, guid: 702377be2ca2fca47913b751c16d3d07, type: 2}
+  DarkTile: {fileID: 2100000, guid: 7270c6d25094cf540a615f99acd6a6fa, type: 2}
+  Frame: {fileID: 2100000, guid: 461000eec502c8e47b15b4d58cbe02df, type: 2}
+  Trim: {fileID: 2100000, guid: 98c6947f00a27934b9778c33018b3a81, type: 2}
+  Table: {fileID: 2100000, guid: ad81d2061062ee048b1249c87fd1631b, type: 2}
+  Rock: {fileID: 2100000, guid: 437c8adc468b49e49a8eaed6591c1900, type: 2}
+  RockDark: {fileID: 2100000, guid: 66cb3d9fff7e1f84ba6a694c88df962b, type: 2}
+  MoveHighlight: {fileID: 2100000, guid: efa98943564bc074a9ff95ff05799509, type: 2}
+  AttackHighlight: {fileID: 2100000, guid: 68c890c8dd3c36a43aab62c554c1d30a, type: 2}
+  ThreatHighlight: {fileID: 2100000, guid: 25d8bcb517bb2a74b8d8eed237a04d95, type: 2}
+  SelectHighlight: {fileID: 2100000, guid: 636838880a3f12d4a829f3d0f809ef16, type: 2}
+  HoverHighlight: {fileID: 2100000, guid: 210bd505aecbd55449e301423db8e69d, type: 2}
+  PlayerBody: {fileID: 2100000, guid: 29b87ca916922214797a6a0521c22be4, type: 2}
+  PlayerAccent: {fileID: 2100000, guid: 39fc05c78f7c49240b3a4e871ef64dd6, type: 2}
+  EnemyBody: {fileID: 2100000, guid: 73b9bb3570ad08e46901fc23d99c80cf, type: 2}
+  EnemyAccent: {fileID: 2100000, guid: b22f7cae90cb30c4b8ef577a76e6c7b7, type: 2}
+  Gold: {fileID: 2100000, guid: e45303ba1bb6d1e4fbfe98720104e97c, type: 2}
+  BarBack: {fileID: 2100000, guid: 340e0ae15c4fcea4e9bc955e1bd92676, type: 2}
+  BarFill: {fileID: 2100000, guid: e26f9a2e5a82fbf47b6b378812359637, type: 2}
+  ParticleAdditive: {fileID: 2100000, guid: c86b8246537a0114fa83e7b36540c0f4, type: 2}
+  ParticleAlpha: {fileID: 2100000, guid: 3a41089f8d827494b873ee30133dfe7b, type: 2}
+  Warriors:
+  - {fileID: 11400000, guid: 39ccf31c34272a04db0f1d916837ff41, type: 2}
+  - {fileID: 11400000, guid: 6a84263d7d0c25d49802a1e17a7e68c7, type: 2}
+  - {fileID: 11400000, guid: 31b7d8a8325564d4880b6e203b7eafc0, type: 2}
+  - {fileID: 11400000, guid: 80592d84ded56d24894167edd3db0757, type: 2}
+  - {fileID: 11400000, guid: b030461206b08a648bd893377ff7dee8, type: 2}
+  - {fileID: 11400000, guid: d114a9817be9a2846856ae4af7fcaf15, type: 2}
+  - {fileID: 11400000, guid: d3faa2366a8d7c141a0659775f14c371, type: 2}
+  BattleMusic: {fileID: 8300000, guid: b99b66745d30d16478d61049acc6ff29, type: 3}
+  CampMusic: {fileID: 8300000, guid: 7b86ac53e3a5c4843bd6f4251977b31d, type: 3}
+  Select: {fileID: 8300000, guid: 2af792fd28d1e274c9945ce969859162, type: 3}
+  Move: {fileID: 8300000, guid: 2aebbaa51a6ef68458d4a2ffc956ccea, type: 3}
+  Slash: {fileID: 8300000, guid: 02f63d54c4dcbae41935dae327c0089e, type: 3}
+  Bolt: {fileID: 8300000, guid: 0ed1d895c4bfbc2488ba9bc9316fb3eb, type: 3}
+  UnitDown: {fileID: 8300000, guid: 9ca6841bc45b9dd4a9c462267b112269, type: 3}
+  Promote: {fileID: 8300000, guid: 02bbfaf541970854d8e3e304b3cd0d24, type: 3}
+  TurnPlayer: {fileID: 8300000, guid: a2c2738c43bd810498f9d0189155adb8, type: 3}
+  TurnEnemy: {fileID: 8300000, guid: 0429cc5309fe04347b0b1901de560d2f, type: 3}
+  Victory: {fileID: 8300000, guid: 094b8e87af1c14a48b579c60dbc9789b, type: 3}
+  Defeat: {fileID: 8300000, guid: b0ca21d86b2404f4698b4a2ee32073c2, type: 3}
+  Click: {fileID: 8300000, guid: b302ba76f92f68f4898d7133e48e19e1, type: 3}
+  Invalid: {fileID: 8300000, guid: 8c3df818708ac214e918301788228cf2, type: 3}

@@ -1,0 +1,479 @@
+/*
+ * War-table HUD: deep slate cards with brass edges over the wooden board.
+ * Designed at 1280x720 reference pixels; the panel settings scale it to the screen.
+ */
+
+:root {
+    --ink: #10131b;
+    --panel: rgba(18, 22, 32, 0.9);
+    --panel-light: rgba(38, 44, 60, 0.95);
+    --brass: #d2a85a;
+    --brass-dark: #8a6a32;
+    --text: #f3ecdc;
+    --muted: #a59f92;
+    --player: #5aa7ff;
+    --enemy: #ff6b5c;
+    --good: #6fdc7a;
+
+    color: var(--text);
+    font-size: 18px;
+}
+
+.hud {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.row--spread {
+    justify-content: space-between;
+}
+
+/* ---- Top bar ---- */
+
+.top-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px 0 20px;
+}
+
+.top-bar__side {
+    flex-direction: row;
+    align-items: center;
+    width: 330px;
+}
+
+.top-bar__side--right {
+    justify-content: flex-end;
+}
+
+.chip {
+    background-color: var(--panel);
+    border-color: var(--brass-dark);
+    border-width: 1px;
+    border-radius: 8px;
+    padding: 6px 14px;
+    margin-right: 8px;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+}
+
+.chip--muted {
+    color: var(--muted);
+}
+
+.turn-chip {
+    font-size: 24px;
+    -unity-font-style: bold;
+    letter-spacing: 3px;
+    padding: 8px 28px;
+    border-radius: 10px;
+    border-width: 2px;
+    background-color: var(--panel);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: var(--ink);
+}
+
+.turn-chip--player {
+    color: var(--player);
+    border-color: var(--player);
+}
+
+.turn-chip--enemy {
+    color: var(--enemy);
+    border-color: var(--enemy);
+}
+
+/* ---- Buttons ---- */
+
+.button {
+    background-color: var(--panel-light);
+    border-color: var(--brass-dark);
+    border-width: 2px;
+    border-radius: 9px;
+    color: var(--text);
+    font-size: 18px;
+    -unity-font-style: bold;
+    padding: 8px 18px;
+    margin: 4px;
+    transition-property: scale, background-color;
+    transition-duration: 0.1s;
+}
+
+.button:hover {
+    background-color: rgb(58, 66, 88);
+    border-color: var(--brass);
+    scale: 1.04 1.04;
+}
+
+.button:active {
+    scale: 0.97 0.97;
+}
+
+.button:disabled {
+    opacity: 0.4;
+}
+
+.button--primary {
+    background-color: var(--brass);
+    border-color: #f1d18e;
+    color: var(--ink);
+}
+
+.button--primary:hover {
+    background-color: #e6bd6c;
+}
+
+.button--square {
+    width: 44px;
+    padding: 8px 0;
+}
+
+.button--wide {
+    width: 300px;
+    font-size: 20px;
+    padding: 11px 18px;
+}
+
+.button--small {
+    font-size: 15px;
+    padding: 5px 12px;
+    margin: 8px 0 0 0;
+    align-self: flex-start;
+}
+
+/* ---- Unit card and forecast ---- */
+
+.card {
+    position: absolute;
+    width: 258px;
+    background-color: var(--panel);
+    border-color: var(--brass-dark);
+    border-width: 2px;
+    border-radius: 12px;
+    padding: 14px 16px;
+    transition-property: opacity, translate;
+    transition-duration: 0.15s;
+}
+
+.card--left {
+    left: 18px;
+    bottom: 64px;
+}
+
+.card--right {
+    right: 18px;
+    bottom: 64px;
+}
+
+.card--off {
+    opacity: 0;
+    translate: 0 12px;
+}
+
+.card__title {
+    font-size: 22px;
+    -unity-font-style: bold;
+    color: var(--brass);
+}
+
+.card__text {
+    white-space: normal;
+    font-size: 15px;
+    margin-top: 6px;
+}
+
+.card__text--lore {
+    color: var(--muted);
+    -unity-font-style: italic;
+}
+
+.card__status {
+    margin-top: 8px;
+    font-size: 15px;
+    -unity-font-style: bold;
+    color: var(--good);
+}
+
+.tag {
+    font-size: 13px;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    color: var(--ink);
+}
+
+.tag--player {
+    background-color: var(--player);
+}
+
+.tag--enemy {
+    background-color: var(--enemy);
+}
+
+.hp {
+    height: 20px;
+    margin-top: 8px;
+    background-color: rgb(40, 20, 22);
+    border-radius: 5px;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.hp__fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--good);
+}
+
+.hp__fill--enemy {
+    background-color: var(--enemy);
+}
+
+.hp__text {
+    -unity-text-align: middle-center;
+    font-size: 14px;
+    -unity-font-style: bold;
+    color: var(--ink);
+}
+
+.stats {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.stat {
+    align-items: center;
+    flex-grow: 1;
+}
+
+.stat__label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--muted);
+}
+
+.stat__value {
+    font-size: 17px;
+    -unity-font-style: bold;
+}
+
+.forecast__line {
+    font-size: 16px;
+    margin-top: 6px;
+    white-space: normal;
+}
+
+.forecast__result {
+    margin-top: 8px;
+    font-size: 18px;
+    -unity-font-style: bold;
+    color: var(--good);
+}
+
+.forecast__result--bad {
+    color: var(--enemy);
+}
+
+/* ---- Hint and banner ---- */
+
+.hint {
+    position: absolute;
+    left: 300px;
+    right: 300px;
+    bottom: 16px;
+    -unity-text-align: middle-center;
+    white-space: normal;
+    font-size: 16px;
+    color: var(--text);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: var(--ink);
+}
+
+.banner {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 38%;
+    -unity-text-align: middle-center;
+    font-size: 64px;
+    -unity-font-style: bold;
+    letter-spacing: 8px;
+    color: var(--player);
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: var(--ink);
+    opacity: 0;
+    scale: 0.8 0.8;
+    transition-property: opacity, scale;
+    transition-duration: 0.25s;
+}
+
+.banner--enemy {
+    color: var(--enemy);
+}
+
+.banner--gold {
+    color: var(--brass);
+}
+
+.banner--show {
+    opacity: 1;
+    scale: 1 1;
+}
+
+.floater {
+    position: absolute;
+    font-size: 30px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: var(--ink);
+    translate: -50% -50%;
+    color: #ffdf6b;
+}
+
+.floater--damage {
+    color: #ff7a66;
+}
+
+.floater--gold {
+    color: var(--brass);
+    font-size: 26px;
+}
+
+/* ---- Screens ---- */
+
+.screen {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.screen--dim {
+    background-color: rgba(8, 10, 16, 0.6);
+}
+
+.panel {
+    background-color: var(--panel);
+    border-color: var(--brass);
+    border-width: 2px;
+    border-radius: 16px;
+    padding: 28px 36px;
+    align-items: center;
+    margin: 12px;
+}
+
+.panel--title {
+    width: 460px;
+}
+
+.panel--rules {
+    width: 470px;
+    align-items: flex-start;
+}
+
+.title {
+    font-size: 54px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    letter-spacing: 4px;
+    color: var(--brass);
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: var(--ink);
+    margin-bottom: 10px;
+}
+
+.title--small {
+    font-size: 40px;
+}
+
+.title--result {
+    font-size: 58px;
+}
+
+.title--defeat {
+    color: var(--enemy);
+}
+
+.tagline {
+    white-space: normal;
+    -unity-text-align: middle-center;
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.tagline--small {
+    font-size: 15px;
+    color: var(--muted);
+    margin: 12px 0 0 0;
+}
+
+.tagline--gold {
+    color: var(--brass);
+    -unity-font-style: bold;
+    margin-bottom: 8px;
+}
+
+.rules__line {
+    white-space: normal;
+    font-size: 16px;
+    margin: 6px 0;
+}
+
+.rules__line--keys {
+    color: var(--muted);
+}
+
+.results {
+    width: 300px;
+    margin-bottom: 14px;
+}
+
+.results__row {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom-width: 1px;
+    border-color: rgba(210, 168, 90, 0.25);
+}
+
+.results__label {
+    color: var(--muted);
+}
+
+.results__value {
+    -unity-font-style: bold;
+}

@@ -1,0 +1,118 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="hud" class="hud" picking-mode="Ignore">
+        <ui:VisualElement name="floaters" class="layer" picking-mode="Ignore" />
+
+        <!-- In battle -->
+        <ui:VisualElement name="top-bar" class="top-bar" picking-mode="Ignore">
+            <ui:VisualElement class="top-bar__side" picking-mode="Ignore">
+                <ui:Label name="round" text="ROUND 1" class="chip" picking-mode="Ignore" />
+                <ui:Label name="armies" text="10 vs 10" class="chip chip--muted" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:Label name="turn" text="YOUR TURN" class="turn-chip turn-chip--player" picking-mode="Ignore" />
+            <ui:VisualElement class="top-bar__side top-bar__side--right" picking-mode="Ignore">
+                <ui:Button name="end-turn-button" text="End turn  [E]" class="button button--primary" />
+                <ui:Button name="pause-button" text="II" class="button button--square" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="unit-card" class="card card--left" picking-mode="Ignore">
+            <ui:VisualElement class="row row--spread" picking-mode="Ignore">
+                <ui:Label name="unit-name" text="Knight" class="card__title" picking-mode="Ignore" />
+                <ui:Label name="unit-team" text="ORDER" class="tag tag--player" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement class="hp" picking-mode="Ignore">
+                <ui:VisualElement name="unit-hp-fill" class="hp__fill" picking-mode="Ignore" />
+                <ui:Label name="unit-hp" text="10 / 10" class="hp__text" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement class="stats" picking-mode="Ignore">
+                <ui:VisualElement class="stat" picking-mode="Ignore">
+                    <ui:Label text="ATTACK" class="stat__label" picking-mode="Ignore" />
+                    <ui:Label name="unit-attack" text="4" class="stat__value" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement class="stat" picking-mode="Ignore">
+                    <ui:Label text="MOVE" class="stat__label" picking-mode="Ignore" />
+                    <ui:Label name="unit-move" text="L-jump" class="stat__value" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement class="stat" picking-mode="Ignore">
+                    <ui:Label text="RANGE" class="stat__label" picking-mode="Ignore" />
+                    <ui:Label name="unit-range" text="1" class="stat__value" picking-mode="Ignore" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Label name="unit-role" text="Role" class="card__text" picking-mode="Ignore" />
+            <ui:Label name="unit-lore" text="Lore" class="card__text card__text--lore" picking-mode="Ignore" />
+            <ui:Label name="unit-status" text="Ready" class="card__status" picking-mode="Ignore" />
+            <ui:Button name="wait-button" text="Wait  [X]" class="button button--small" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="forecast" class="card card--right" picking-mode="Ignore">
+            <ui:Label name="forecast-title" text="Attack" class="card__title" picking-mode="Ignore" />
+            <ui:Label name="forecast-deal" text="Deals 4" class="forecast__line" picking-mode="Ignore" />
+            <ui:Label name="forecast-counter" text="Counter 2" class="forecast__line" picking-mode="Ignore" />
+            <ui:Label name="forecast-result" text="DEFEATS IT" class="forecast__result" picking-mode="Ignore" />
+        </ui:VisualElement>
+
+        <ui:Label name="hint" text="" class="hint" picking-mode="Ignore" />
+        <ui:Label name="banner" text="YOUR TURN" class="banner" picking-mode="Ignore" />
+
+        <!-- Title -->
+        <ui:VisualElement name="title" class="screen">
+            <ui:VisualElement class="panel panel--title">
+                <ui:Label text="CHESSBOARD&#10;TACTICS" class="title" />
+                <ui:Label text="Lead the Order against the Horde in a turn-based battle on a chessboard." class="tagline" />
+                <ui:Button name="play-button" text="Start battle  [Space]" class="button button--primary button--wide" />
+                <ui:Button name="rules-button" text="How to play" class="button button--wide" />
+                <ui:Label name="record" text="No battles fought yet" class="tagline tagline--small" />
+            </ui:VisualElement>
+            <ui:VisualElement name="rules" class="panel panel--rules hidden">
+                <ui:Label text="HOW TO PLAY" class="card__title" />
+                <ui:Label text="Defeat the enemy King, or every enemy unit, to win. Lose your King and the battle is lost." class="rules__line" />
+                <ui:Label text="On your turn each unit may move once, then attack once or wait. Units with a coloured disc can still act." class="rules__line" />
+                <ui:Label text="Click a unit, then a blue tile to move or a red enemy to attack. Hover an enemy to see where it can reach." class="rules__line" />
+                <ui:Label text="Attacks always hit. A defender that survives and has you in range strikes back for half its attack." class="rules__line" />
+                <ui:Label text="Bishops shoot 2-3 tiles away but cannot hit adjacent foes. Knights leap. Pawns that reach the far rank become War Dogs." class="rules__line" />
+                <ui:Label text="Keys: arrows/WASD move the cursor, Space selects, X waits, Tab picks the next unit, E ends the turn, Esc cancels or pauses, M mutes." class="rules__line rules__line--keys" />
+                <ui:Button name="rules-close-button" text="Got it" class="button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Pause -->
+        <ui:VisualElement name="pause" class="screen screen--dim hidden">
+            <ui:VisualElement class="panel">
+                <ui:Label text="PAUSED" class="title title--small" />
+                <ui:Button name="resume-button" text="Resume  [Esc]" class="button button--primary button--wide" />
+                <ui:Button name="restart-button" text="Restart battle" class="button button--wide" />
+                <ui:Button name="pause-title-button" text="Main menu" class="button button--wide" />
+                <ui:Label name="mute-status" text="Sound on  [M]" class="tagline tagline--small" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- End of battle -->
+        <ui:VisualElement name="game-over" class="screen screen--dim hidden">
+            <ui:VisualElement class="panel">
+                <ui:Label name="result-title" text="VICTORY" class="title title--result" />
+                <ui:Label name="result-subtitle" text="The Horde's king has fallen." class="tagline" />
+                <ui:VisualElement class="results" picking-mode="Ignore">
+                    <ui:VisualElement class="results__row" picking-mode="Ignore">
+                        <ui:Label text="Rounds" class="results__label" />
+                        <ui:Label name="result-rounds" text="12" class="results__value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="results__row" picking-mode="Ignore">
+                        <ui:Label text="Foes defeated" class="results__label" />
+                        <ui:Label name="result-defeated" text="6" class="results__value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="results__row" picking-mode="Ignore">
+                        <ui:Label text="Units lost" class="results__label" />
+                        <ui:Label name="result-lost" text="3" class="results__value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="results__row" picking-mode="Ignore">
+                        <ui:Label text="Record" class="results__label" />
+                        <ui:Label name="result-record" text="1 won / 0 lost" class="results__value" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label name="result-best" text="NEW FASTEST VICTORY!" class="tagline tagline--gold" />
+                <ui:Button name="again-button" text="Fight again  [Space]" class="button button--primary button--wide" />
+                <ui:Button name="over-title-button" text="Main menu" class="button button--wide" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
