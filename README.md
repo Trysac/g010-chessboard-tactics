@@ -28,10 +28,11 @@ Unity -batchmode -quit -projectPath . -executeMethod ChessboardTactics.EditorToo
 (`BuildWindows` works the same way.) The WebGL build is uncompressed, so it runs from any
 static host such as GitHub Pages.
 
-The tests run from **Window → General → Test Runner → EditMode**, or from a terminal:
+The tests run from **Window → General → Test Runner** (EditMode and PlayMode), or from a terminal:
 
 ```bash
 Unity -batchmode -projectPath . -runTests -testPlatform EditMode -testResults results.xml
+Unity -batchmode -projectPath . -runTests -testPlatform PlayMode -testResults playmode.xml
 ```
 
 The README screenshots come from an opt-in hook: run a built player with
@@ -101,7 +102,7 @@ a player, `Unity -batchmode -projectPath . -executeMethod ChessboardTactics.Edit
   Python synthesizer (`tools/audio`). The UI is UI Toolkit (UXML + USS) and input goes through
   the Input System, so mouse, keyboard and gamepad all work.
 - **Rescuing old work.** This started in 2022 as a Unity 2020 proof of concept with a board,
-  a pawn that could step forward and two music mixes of unknown origin. It was upgraded to
+  a pawn that could step forward and three music mixes of unknown origin. It was upgraded to
   Unity 6, the music was replaced with original audio, and the idea was grown into a complete
   battle with its own rules, AI and UI.
 
