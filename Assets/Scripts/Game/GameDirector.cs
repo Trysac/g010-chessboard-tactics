@@ -154,13 +154,13 @@ namespace ChessboardTactics.Game
             marksDirty = true;
         }
 
+        // Every caller replaces the match, so nothing the director started may
+        // keep running: that includes the delayed result screen of a finished
+        // battle and the fall animations of defeated units.
         void StopTurn()
         {
-            if (turnRoutine != null)
-            {
-                StopCoroutine(turnRoutine);
-                turnRoutine = null;
-            }
+            StopAllCoroutines();
+            turnRoutine = null;
             StopAllCoroutinesOnViews();
             busy = 0;
         }
