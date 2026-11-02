@@ -31,6 +31,11 @@ MonoBehaviour:
   Gold: {fileID: 2100000, guid: e45303ba1bb6d1e4fbfe98720104e97c, type: 2}
   BarBack: {fileID: 2100000, guid: 340e0ae15c4fcea4e9bc955e1bd92676, type: 2}
   BarFill: {fileID: 2100000, guid: e26f9a2e5a82fbf47b6b378812359637, type: 2}
+  CubeMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  SphereMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  CylinderMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  CapsuleMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  QuadMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   ParticleAdditive: {fileID: 2100000, guid: c86b8246537a0114fa83e7b36540c0f4, type: 2}
   ParticleAlpha: {fileID: 2100000, guid: 3a41089f8d827494b873ee30133dfe7b, type: 2}
   Warriors:

@@ -96,6 +96,12 @@ namespace ChessboardTactics.EditorTools
             art.BarBack = Unlit("BarBack", "#121318");
             art.BarFill = Unlit("BarFill", "#ffffff");
 
+            art.CubeMesh = PrimitiveMesh(PrimitiveType.Cube);
+            art.SphereMesh = PrimitiveMesh(PrimitiveType.Sphere);
+            art.CylinderMesh = PrimitiveMesh(PrimitiveType.Cylinder);
+            art.CapsuleMesh = PrimitiveMesh(PrimitiveType.Capsule);
+            art.QuadMesh = PrimitiveMesh(PrimitiveType.Quad);
+
             Texture2D dot = CreateSoftDot();
             art.ParticleAdditive = Particle("ParticleAdditive", dot, additive: true);
             art.ParticleAlpha = Particle("ParticleAlpha", dot, additive: false);
@@ -119,6 +125,15 @@ namespace ChessboardTactics.EditorTools
 
             EditorUtility.SetDirty(art);
             return art;
+        }
+
+        /// <summary>The exact mesh GameObject.CreatePrimitive uses for a shape.</summary>
+        static Mesh PrimitiveMesh(PrimitiveType type)
+        {
+            GameObject probe = GameObject.CreatePrimitive(type);
+            Mesh mesh = probe.GetComponent<MeshFilter>().sharedMesh;
+            UnityEngine.Object.DestroyImmediate(probe);
+            return mesh;
         }
 
         static WarriorData[] CreateWarriors()

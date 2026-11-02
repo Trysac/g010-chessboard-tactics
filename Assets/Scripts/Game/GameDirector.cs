@@ -45,6 +45,12 @@ namespace ChessboardTactics.Game
         Coroutine turnRoutine;
         int busy;
         bool marksDirty = true;
+        // Clicks come through actions, which see every event, so a press and release that land
+        // in the same frame (fast taps, slow WebGL frames) still count.
+        InputAction leftClick;
+        InputAction rightClick;
+        int leftClicks;
+        int rightClicks;
 
         public Match Match { get; private set; }
         public Hud Hud => hud;
@@ -57,6 +63,7 @@ namespace ChessboardTactics.Game
         void Awake()
         {
             Application.targetFrameRate = 60;
+            Shapes.Init(art);
             audioDirector = gameObject.AddComponent<AudioDirector>();
             audioDirector.Init();
             record = new BattleRecord(new PlayerPrefsRecordStore());
@@ -75,6 +82,22 @@ namespace ChessboardTactics.Game
         void Start()
         {
             ToTitle();
+        }
+
+        void OnEnable()
+        {
+            leftClick = new InputAction("Click", InputActionType.Button, "<Mouse>/leftButton");
+            leftClick.performed += _ => leftClicks++;
+            leftClick.Enable();
+            rightClick = new InputAction("Cancel click", InputActionType.Button, "<Mouse>/rightButton");
+            rightClick.performed += _ => rightClicks++;
+            rightClick.Enable();
+        }
+
+        void OnDisable()
+        {
+            leftClick?.Dispose();
+            rightClick?.Dispose();
         }
 
         // ---- Flow ----
@@ -535,8 +558,7 @@ namespace ChessboardTactics.Game
 
         IEnumerator Projectile(UnitView from, UnitView to)
         {
-            GameObject bolt = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            Destroy(bolt.GetComponent<Collider>());
+            GameObject bolt = Shapes.Create(PrimitiveType.Sphere);
             bolt.transform.localScale = Vector3.one * 0.18f;
             bolt.GetComponent<Renderer>().sharedMaterial = from.Unit.Team == Team.Player ? art.PlayerAccent : art.EnemyAccent;
             Vector3 start = from.transform.position + Vector3.up * from.Height;
@@ -568,9 +590,13 @@ namespace ChessboardTactics.Game
             Keyboard keyboard = Keyboard.current;
             Mouse mouse = Mouse.current;
             Gamepad pad = Gamepad.current;
+            bool clicked = leftClicks > 0;
+            bool rightClicked = rightClicks > 0;
+            leftClicks = 0;
+            rightClicks = 0;
             bool confirm = Pressed(keyboard?.spaceKey) || Pressed(keyboard?.enterKey) || Pressed(keyboard?.numpadEnterKey) || Pressed(pad?.buttonSouth);
             bool back = Pressed(keyboard?.escapeKey) || Pressed(pad?.startButton);
-            bool cancel = Pressed(keyboard?.backspaceKey) || Pressed(pad?.buttonEast) || Pressed(mouse?.rightButton);
+            bool cancel = Pressed(keyboard?.backspaceKey) || Pressed(pad?.buttonEast) || rightClicked;
 
             if (Pressed(keyboard?.mKey))
             {
@@ -685,10 +711,15 @@ namespace ChessboardTactics.Game
                     keyboardCursor = false;
                 }
                 lastMouse = position;
-                if (Pressed(mouse.leftButton) && !hud.IsOverUi(position) && hovered.HasValue)
+                if (clicked && !hud.IsOverUi(position))
                 {
                     keyboardCursor = false;
-                    Confirm(hovered.Value);
+                    hovered = TileUnderPointer(position);
+                    marksDirty = true;
+                    if (hovered.HasValue)
+                    {
+                        Confirm(hovered.Value);
+                    }
                 }
             }
             if (confirm && hovered.HasValue)

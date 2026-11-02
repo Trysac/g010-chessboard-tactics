@@ -114,8 +114,7 @@ namespace ChessboardTactics.Game
         static void Part(Transform parent, PrimitiveType shape, Vector3 position, Vector3 scale, Material material,
             Quaternion? rotation = null)
         {
-            GameObject part = GameObject.CreatePrimitive(shape);
-            Object.Destroy(part.GetComponent<Collider>());
+            GameObject part = Shapes.Create(shape);
             part.transform.SetParent(parent, false);
             part.transform.localPosition = position;
             part.transform.localRotation = rotation ?? Quaternion.identity;

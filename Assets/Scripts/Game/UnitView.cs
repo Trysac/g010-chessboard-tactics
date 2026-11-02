@@ -70,8 +70,7 @@ namespace ChessboardTactics.Game
 
         void BuildMarker()
         {
-            GameObject disc = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            Destroy(disc.GetComponent<Collider>());
+            GameObject disc = Shapes.Create(PrimitiveType.Cylinder);
             disc.name = "Ready marker";
             disc.transform.SetParent(transform, false);
             disc.transform.localPosition = new Vector3(0f, 0.012f, 0f);
@@ -99,8 +98,7 @@ namespace ChessboardTactics.Game
 
         static Transform Quad(Transform parent, string name, Material material, Vector3 scale, float z)
         {
-            GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            Destroy(quad.GetComponent<Collider>());
+            GameObject quad = Shapes.Create(PrimitiveType.Quad);
             quad.name = name;
             quad.transform.SetParent(parent, false);
             quad.transform.localPosition = new Vector3(0f, 0f, z);

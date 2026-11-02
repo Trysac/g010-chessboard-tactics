@@ -31,6 +31,13 @@ namespace ChessboardTactics.Game
         public Material BarBack;
         public Material BarFill;
 
+        [Header("Meshes (Unity's built-in shapes, referenced so builds include them)")]
+        public Mesh CubeMesh;
+        public Mesh SphereMesh;
+        public Mesh CylinderMesh;
+        public Mesh CapsuleMesh;
+        public Mesh QuadMesh;
+
         [Header("Effects")]
         public Material ParticleAdditive;
         public Material ParticleAlpha;

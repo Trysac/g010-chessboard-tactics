@@ -125,8 +125,7 @@ namespace ChessboardTactics.Game
 
         Transform Block(string name, Vector3 position, Vector3 scale, Material material, bool castShadows = true)
         {
-            GameObject block = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            Destroy(block.GetComponent<Collider>());
+            GameObject block = Shapes.Create(PrimitiveType.Cube);
             block.name = name;
             block.transform.SetParent(transform, false);
             block.transform.position = position;
@@ -142,8 +141,7 @@ namespace ChessboardTactics.Game
 
         Renderer FlatQuad(string name, Coord tile, float size, float height)
         {
-            GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            Destroy(quad.GetComponent<Collider>());
+            GameObject quad = Shapes.Create(PrimitiveType.Quad);
             quad.name = name;
             quad.transform.SetParent(transform, false);
             quad.transform.position = TileCenter(tile) + Vector3.up * height;
