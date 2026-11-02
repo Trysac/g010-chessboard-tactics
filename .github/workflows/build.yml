@@ -58,7 +58,7 @@ jobs:
         if: steps.license.outputs.available == 'true'
         uses: game-ci/unity-test-runner@v4
         with:
-          testMode: editmode
+          testMode: all
           artifactsPath: build/test-results
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
