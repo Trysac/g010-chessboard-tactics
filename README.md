@@ -11,6 +11,16 @@ enemy King before he takes yours.
 | ![Title screen](docs/screenshots/title.png) | ![Attack forecast: damage, counter-attack and result before you commit](docs/screenshots/forecast.png) |
 | ![The enemy turn, played by the AI](docs/screenshots/enemy.png) | ![Result screen with the saved battle record](docs/screenshots/gameover.png) |
 
+## Play it
+
+- **In your browser:** [trysac.github.io/Chessboard](https://trysac.github.io/Chessboard/)
+- **On itch.io:** [trysac.itch.io/chessboard-tactics](https://trysac.itch.io/chessboard-tactics)
+- **Get the code:** fork this repository, or clone it:
+
+  ```bash
+  git clone https://github.com/Trysac/Chessboard.git
+  ```
+
 ## Run it
 
 1. Install **Unity 6000.3.27f1 (Unity 6 LTS)** with Unity Hub (add the Windows or Web build
