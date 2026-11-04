@@ -14,6 +14,8 @@ namespace ChessboardTactics.Game
     /// (which have no command line) are unaffected. Scenarios run in the order given.
     /// The same hook runs inside the editor (ProjectBuilder.CaptureScreenshots), which renders
     /// the camera and the HUD off screen and blends them, for machines that cannot run the player.
+    /// Adding <c>-frames N [-fps F]</c> records N numbered frames per scenario at a fixed timestep
+    /// (into &lt;folder&gt;/&lt;scenario&gt;/) instead of one still, e.g. <c>-scenario gameplay -frames 90 -fps 15</c>.
     /// </summary>
     public sealed class ScreenshotScenarios : MonoBehaviour
     {
@@ -24,6 +26,8 @@ namespace ChessboardTactics.Game
 
         string folder;
         string[] scenarios;
+        int frames;
+        int fps;
         RenderTexture sceneTarget;
         RenderTexture uiTarget;
 
@@ -38,6 +42,8 @@ namespace ChessboardTactics.Game
             var host = new GameObject(nameof(ScreenshotScenarios)).AddComponent<ScreenshotScenarios>();
             host.folder = target;
             host.scenarios = (Argument("-scenario") ?? DefaultScenarios).Split(',');
+            host.frames = int.TryParse(Argument("-frames"), out int count) ? count : 0;
+            host.fps = int.TryParse(Argument("-fps"), out int rate) ? rate : 15;
         }
 
         IEnumerator Start()
@@ -53,6 +59,11 @@ namespace ChessboardTactics.Game
             foreach (string raw in scenarios)
             {
                 string scenario = raw.Trim();
+                if (frames > 0)
+                {
+                    yield return Record(director, scenario);
+                    continue;
+                }
                 yield return Stage(director, scenario);
                 Texture2D shot;
                 if (Application.isEditor)
@@ -74,6 +85,89 @@ namespace ChessboardTactics.Game
 #else
             Application.Quit();
 #endif
+        }
+
+        /// <summary>
+        /// Stages <paramref name="scenario"/>, then saves <see cref="frames"/> frames while game time
+        /// advances exactly 1/<see cref="fps"/> s per frame, however long each capture takes.
+        /// </summary>
+        IEnumerator Record(GameDirector director, string scenario)
+        {
+            string target = Path.Combine(folder, scenario);
+            Directory.CreateDirectory(target);
+            yield return Stage(director, scenario);
+            if (scenario == "gameplay")
+            {
+                StartCoroutine(PlayTurn(director));
+            }
+            Time.captureFramerate = fps;
+            for (int i = 0; i < frames; i++)
+            {
+                Texture2D shot;
+                if (Application.isEditor)
+                {
+                    yield return null;
+                    shot = CaptureOffscreen();
+                }
+                else
+                {
+                    yield return new WaitForEndOfFrame();
+                    shot = ScreenCapture.CaptureScreenshotAsTexture();
+                }
+                File.WriteAllBytes(Path.Combine(target, $"frame_{i:0000}.png"), shot.EncodeToPNG());
+                Destroy(shot);
+            }
+            Time.captureFramerate = 0;
+            Debug.Log($"Saved {frames} frames of {scenario} at {fps} fps.");
+        }
+
+        /// <summary>One real player action (select, move, attack) followed by the enemy's animated reply.</summary>
+        static IEnumerator PlayTurn(GameDirector director)
+        {
+            Match match = director.Match;
+            Unit attacker = null;
+            Coord? destination = null;
+            Unit target = null;
+            foreach (Unit unit in match.PendingUnits())
+            {
+                foreach (Coord tile in Movement.Destinations(match.Board, unit))
+                {
+                    target = Movement.TargetsFrom(match.Board, unit, tile).FirstOrDefault();
+                    if (target != null)
+                    {
+                        attacker = unit;
+                        destination = tile;
+                        break;
+                    }
+                }
+                if (attacker != null)
+                {
+                    break;
+                }
+            }
+            if (attacker == null)
+            {
+                director.EndPlayerTurn();
+                yield break;
+            }
+            yield return new WaitForSeconds(0.4f);
+            director.ClickTile(attacker.Position);
+            yield return new WaitForSeconds(0.9f);
+            director.ClickTile(destination.Value);
+            yield return null;
+            while (director.Busy)
+            {
+                yield return null;
+            }
+            yield return new WaitForSeconds(0.5f);
+            director.ClickTile(target.Position);
+            yield return null;
+            while (director.Busy)
+            {
+                yield return null;
+            }
+            yield return new WaitForSeconds(0.4f);
+            director.EndPlayerTurn();
         }
 
         /// <summary>Points the camera and the HUD panel at render textures of a fixed size.</summary>
@@ -172,6 +266,9 @@ namespace ChessboardTactics.Game
                     Debug.Log($"Smoke run: enemy turn finished={director.Phase == GamePhase.PlayerTurn} after {waited:0.0}s, round {director.Match.Round}, " +
                         $"pawn at {director.Match.Board.UnitAt(new Coord(3, 3))?.Type}, knight at {director.Match.Board.UnitAt(new Coord(2, 2))?.Type}.");
                     yield return new WaitForSecondsRealtime(1.5f);
+                    break;
+                case "gameplay":
+                    yield return Battle(director, 3);
                     break;
                 case "gameover":
                     yield return Battle(director, 0);
