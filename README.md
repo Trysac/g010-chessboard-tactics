@@ -4,6 +4,8 @@ A small turn-based tactics game played on a chessboard, built with Unity: lead t
 chess pieces against the Horde's AI army, move and strike unit by unit, and take down the
 enemy King before he takes yours.
 
+![Gameplay](docs/media/gameplay.gif)
+
 ![Choosing where the Queen moves; red tiles mark the enemies she could strike from there](docs/screenshots/select.png)
 
 | | |
