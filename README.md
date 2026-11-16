@@ -15,12 +15,12 @@ enemy King before he takes yours.
 
 ## Play it
 
-- **In your browser:** [trysac.github.io/Chessboard](https://trysac.github.io/Chessboard/)
+- **In your browser:** [trysac.github.io/g010-chessboard-tactics](https://trysac.github.io/g010-chessboard-tactics/)
 - **On itch.io:** [trysac.itch.io/chessboard-tactics](https://trysac.itch.io/chessboard-tactics)
 - **Get the code:** fork this repository, or clone it:
 
   ```bash
-  git clone https://github.com/Trysac/Chessboard.git
+  git clone https://github.com/Trysac/g010-chessboard-tactics.git
   ```
 
 ## Run it
